@@ -1,35 +1,59 @@
+
+//SETUP
 const info = document.getElementById("info-area");
-info.textContent = "HELLO!"
+info.textContent = "HELLO, press STARTO! to start"
+
+
+// counters
+let roundCounter = 0;
+
+// symbols
+
+let symbol = "X";
 
 
 
 //creates empty board with placeholder "-"
 
-let gameboard = Array(9);
+let gameboard = new Array(9);
 
-gameboard[0] = "."
-gameboard[1] = "."
-gameboard[2] = "."
+gameboard[0] = ".";
+gameboard[1] = ".";
+gameboard[2] = ".";
 
-gameboard[3] = "."
-gameboard[4] = "."
-gameboard[5] = "."
+gameboard[3] = ".";
+gameboard[4] = ".";
+gameboard[5] = ".";
 
-gameboard[6] = "."
-gameboard[7] = "."
-gameboard[8] = "."
+gameboard[6] = ".";
+gameboard[7] = ".";
+gameboard[8] = ".";
 
 console.log(gameboard);
 
+// start button
 
+const startButton = document.getElementById("starto");
+startButton.addEventListener("click", () => {
+    startGame();
+    startButton.disabled = true;
+})
 
-// buttons
+// reset button
+
+const resetButton = document.getElementById("reseto");
+resetButton.addEventListener("click", () => {
+    resetGame();
+})
+
+// gameboard buttons
 
 const zero = document.querySelector('#zero');
 zero.addEventListener("click", () => {
     console.log("zero click!")
-    zero.textContent = "X"
-    gameboard[0] = "X"
+    playRound();
+    zero.textContent = symbol
+    gameboard[0] = symbol
     zero.disabled = true;
     console.log(gameboard);
     checkForWinner();
@@ -37,17 +61,20 @@ zero.addEventListener("click", () => {
 const one = document.querySelector('#one');
 one.addEventListener("click", () => {
     console.log("one click!")
-    one.textContent = "X"
-    gameboard[1] = "X"
+    playRound();
+    one.textContent = symbol
+    gameboard[1] = symbol
     one.disabled = true;
     console.log(gameboard);
     checkForWinner();
 });
+
 const two = document.querySelector('#two');
 two.addEventListener("click", () => {
     console.log("two click!")
-    two.textContent = "X"
-    gameboard[2] = "X"
+    playRound();
+    two.textContent = symbol
+    gameboard[2] = symbol
     two.disabled = true;
     console.log(gameboard);
     checkForWinner();
@@ -56,27 +83,32 @@ two.addEventListener("click", () => {
 const three = document.querySelector('#three');
 three.addEventListener("click", () => {
     console.log("three click!")
-    three.textContent = "X"
-    gameboard[3] = "X"
+    playRound();
+    three.textContent = symbol
+    gameboard[3] = symbol
     three.disabled = true;
     console.log(gameboard);
     checkForWinner();
 });
+
 const four = document.querySelector('#four');
 four.addEventListener("click", () => {
     console.log("four click!")
-    four.textContent = "X"
-    gameboard[4] = "X"
+    playRound();
+    four.textContent = symbol
+    gameboard[4] = symbol
     four.disabled = true;
     console.log(gameboard);
     checkForWinner();
 
 });
+
 const five = document.querySelector('#five');
 five.addEventListener("click", () => {
     console.log("five click!")
-    five.textContent = "X"
-    gameboard[5] = "X"
+    playRound();
+    five.textContent = symbol
+    gameboard[5] = symbol
     five.disabled = true;
     console.log(gameboard);
     checkForWinner();
@@ -85,36 +117,78 @@ five.addEventListener("click", () => {
 const six = document.querySelector('#six');
 six.addEventListener("click", () => {
     console.log("six click!")
-    six.textContent = "X"
-    gameboard[6] = "X"
+    playRound();
+    six.textContent = symbol
+    gameboard[6] = symbol
     six.disabled = true;
     console.log(gameboard);
     checkForWinner();
 });
+
 const seven = document.querySelector('#seven');
 seven.addEventListener("click", () => {
     console.log("seven click!")
-    seven.textContent = "X"
-    gameboard[7] = "X"
+    playRound();
+    seven.textContent = symbol
+    gameboard[7] = symbol
     seven.disabled = true;
     console.log(gameboard);
     checkForWinner();
 });
+
 const eight = document.querySelector('#eight');
 eight.addEventListener("click", () => {
     console.log("eight click!")
-    eight.textContent = "X"
-    gameboard[8] = "X"
+    playRound();
+    eight.textContent = symbol
+    gameboard[8] = symbol
     eight.disabled = true;
     console.log(gameboard);
     checkForWinner();
 });
 
+function activateButtons() {
+    let x = document.getElementsByClassName("btn");
+    for (let i = 0; i < x.length; i++) {
+        x[i].disabled = false;
+    }
+}
+
+function disableButtons() {
+    let x = document.getElementsByClassName("btn");
+    for (let i = 0; i < x.length; i++) {
+        x[i].disabled = true;
+    }
+}
+
+function startGame() {
+    activateButtons();
+}
+
+
+function playRound() {
+    if (roundCounter % 2 == 0) {
+        symbol = "X";
+        console.log(roundCounter, symbol);
+        roundCounter++;
+    }
+    else {
+        symbol = "O";
+        console.log(roundCounter, symbol);
+
+        roundCounter++;
+    }
+
+}
+
+
+
+
 
 
 // check rows
 
-const checkRows = () => {
+function checkRows() {
     var rowNumber = 0;
 
 
@@ -132,7 +206,7 @@ const checkRows = () => {
 
 }
 
-const checkCols = () => {
+function checkCols() {
     var colNumber = 0;
 
     while (colNumber < 3) {
@@ -150,7 +224,7 @@ const checkCols = () => {
 
 }
 
-const checkDiag = () => {
+function checkDiag() {
     var diagNumber = 0;
 
     while (diagNumber < 3) {
@@ -158,15 +232,15 @@ const checkDiag = () => {
         if (startSymbol === ".") {
             diagNumber += 2;
             continue;
-        }   
-         if (diagNumber === 0) {
-            
+        }
+        if (diagNumber === 0) {
+
             if (gameboard[diagNumber + 4] === startSymbol && gameboard[diagNumber + 8] === startSymbol) {
                 return true;
             }
         }
         else {
-           if (gameboard[diagNumber + 2] === startSymbol && gameboard[diagNumber + 4] === startSymbol) {
+            if (gameboard[diagNumber + 2] === startSymbol && gameboard[diagNumber + 4] === startSymbol) {
                 return true;
             }
         }
@@ -175,18 +249,24 @@ const checkDiag = () => {
 }
 
 // check for winner
-const checkForWinner = () => {
+function checkForWinner() {
     if (checkRows() == true || checkCols() == true || checkDiag() == true) {
-        console.log("Winner!")
+        console.log("Winner!");
         let x = document.getElementsByClassName("btn");
         for (let i = 0; i < x.length; i++) {
             x[i].disabled = true;
+            x[i].style.background = "#550077";
+
         }
     }
 }
 
 
 
+
+
+
+// STYLING AND HTML CONTENT!
 //footer
 
 const footer = document.querySelector('.footer');
@@ -203,6 +283,8 @@ footerGit.href = "https://github.com/heinohen"
 const footerImg = document.createElement('img')
 footerImg.src = "./images/git.png";
 footerImg.alt = "gitcat";
-footerGit.setAttribute('id','gitlink');
+footerGit.setAttribute('id', 'gitlink');
 footerGit.appendChild(footerImg);
 footer.appendChild(footerGit);
+
+disableButtons();
