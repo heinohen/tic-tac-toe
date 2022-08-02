@@ -29,9 +29,10 @@ body {
 
 .game-table {
     padding: 50px;
-    background-color: gray;
-    box-shadow: inset 2px 1px 10px lightgray;
     border-radius: 10px;
+    border: solid 1px;
+    box-shadow: -20px 20px 15px -3px rgba(0,0,0,0.1),20px -20px 15px -3px rgba(0,0,0,0.1);
+
 
 }
 
@@ -39,6 +40,8 @@ body {
     background-color: gray;
     display: flex;
     justify-content: center;
+    height: 200px;
+    align-items: center;
 }
 
 .controls-selection {
@@ -69,13 +72,21 @@ td {
 
 #starto, #reseto {
     margin: 20px;
-    height: 50px;
+    height: 100px;
+    width: 100px;
     border-radius: 30px;
     background-color: aqua;
 }
 #starto:hover, #reseto:hover {
     transition: 0.5s;
     background-color: yellow;
+    transform: rotate(360deg);
+}
+
+#starto:disabled {
+    background-color: gray;
+    transform: none;
+
 }
 
 .btn:hover {
