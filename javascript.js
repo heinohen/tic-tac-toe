@@ -3,6 +3,10 @@
 const info = document.getElementById("info-area");
 info.textContent = "HELLO, press STARTO! to start"
 
+const commentator = document.getElementById("commentator");
+
+
+
 
 // counters
 let roundCounter = 0;
@@ -10,6 +14,8 @@ let roundCounter = 0;
 // symbols
 
 let symbol = "X";
+let winSymbol;
+
 
 
 
@@ -163,10 +169,13 @@ function disableButtons() {
 
 function startGame() {
     activateButtons();
+    info.textContent = "Game on, good luck!"
+    commentator.textContent = `${symbol} goes first!`;
 }
 
 
 function playRound() {
+    commentator.textContent = "";
     if (roundCounter % 2 == 0) {
         symbol = "X";
         console.log(roundCounter, symbol);
@@ -199,6 +208,7 @@ function checkRows() {
             continue;
         }
         if (gameboard[rowNumber + 1] === startSymbol && gameboard[rowNumber + 2] === startSymbol) {
+            winSymbol = startSymbol;
             return true;
         }
         rowNumber += 3;
@@ -217,6 +227,7 @@ function checkCols() {
         }
 
         if (gameboard[colNumber + 3] === startSymbol && gameboard[colNumber + 6] === startSymbol) {
+            winSymbol = startSymbol;
             return true;
         }
         colNumber++;
@@ -236,11 +247,13 @@ function checkDiag() {
         if (diagNumber === 0) {
 
             if (gameboard[diagNumber + 4] === startSymbol && gameboard[diagNumber + 8] === startSymbol) {
+                winSymbol = startSymbol;
                 return true;
             }
         }
         else {
             if (gameboard[diagNumber + 2] === startSymbol && gameboard[diagNumber + 4] === startSymbol) {
+                winSymbol = startSymbol;
                 return true;
             }
         }
@@ -250,8 +263,9 @@ function checkDiag() {
 
 // check for winner
 function checkForWinner() {
-    if (checkRows() == true || checkCols() == true || checkDiag() == true) {
+    if (checkRows() || checkCols() || checkDiag()) {
         console.log("Winner!");
+        info.textContent = `${winSymbol} has won!`
         let x = document.getElementsByClassName("btn");
         for (let i = 0; i < x.length; i++) {
             x[i].disabled = true;
@@ -260,11 +274,6 @@ function checkForWinner() {
         }
     }
 }
-
-
-
-
-
 
 // STYLING AND HTML CONTENT!
 //footer
