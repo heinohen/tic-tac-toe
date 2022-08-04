@@ -1,7 +1,7 @@
 
 //SETUP
 const info = document.getElementById("info-area");
-info.textContent = "HELLO, press STARTO! to start"
+info.textContent = "HELLO, press PLAY! to start"
 
 const commentator = document.getElementById("commentator");
 
@@ -15,6 +15,12 @@ let roundCounter = 0;
 
 let symbol = "X";
 let winSymbol;
+
+// X color #1df500
+// Y color #f50000
+const xColor = "#1df500";
+const yCOlor = "#f50000";
+let winColor = "";
 
 
 
@@ -35,7 +41,6 @@ gameboard[6] = ".";
 gameboard[7] = ".";
 gameboard[8] = ".";
 
-console.log(gameboard);
 
 // start button
 
@@ -56,100 +61,82 @@ resetButton.addEventListener("click", () => {
 
 const zero = document.querySelector('#zero');
 zero.addEventListener("click", () => {
-    console.log("zero click!")
     playRound();
     zero.textContent = symbol
     gameboard[0] = symbol
     zero.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 const one = document.querySelector('#one');
 one.addEventListener("click", () => {
-    console.log("one click!")
     playRound();
     one.textContent = symbol
     gameboard[1] = symbol
     one.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
 const two = document.querySelector('#two');
 two.addEventListener("click", () => {
-    console.log("two click!")
     playRound();
     two.textContent = symbol
     gameboard[2] = symbol
     two.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
 const three = document.querySelector('#three');
 three.addEventListener("click", () => {
-    console.log("three click!")
     playRound();
     three.textContent = symbol
     gameboard[3] = symbol
     three.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
 const four = document.querySelector('#four');
 four.addEventListener("click", () => {
-    console.log("four click!")
     playRound();
     four.textContent = symbol
     gameboard[4] = symbol
     four.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 
 });
 
 const five = document.querySelector('#five');
 five.addEventListener("click", () => {
-    console.log("five click!")
     playRound();
     five.textContent = symbol
     gameboard[5] = symbol
     five.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
 const six = document.querySelector('#six');
 six.addEventListener("click", () => {
-    console.log("six click!")
     playRound();
     six.textContent = symbol
     gameboard[6] = symbol
     six.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
 const seven = document.querySelector('#seven');
 seven.addEventListener("click", () => {
-    console.log("seven click!")
     playRound();
     seven.textContent = symbol
     gameboard[7] = symbol
     seven.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
 const eight = document.querySelector('#eight');
 eight.addEventListener("click", () => {
-    console.log("eight click!")
     playRound();
     eight.textContent = symbol
     gameboard[8] = symbol
     eight.disabled = true;
-    console.log(gameboard);
     checkForWinner();
 });
 
@@ -178,13 +165,10 @@ function playRound() {
     commentator.textContent = "";
     if (roundCounter % 2 == 0) {
         symbol = "X";
-        console.log(roundCounter, symbol);
         roundCounter++;
     }
     else {
         symbol = "O";
-        console.log(roundCounter, symbol);
-
         roundCounter++;
     }
 
@@ -264,12 +248,17 @@ function checkDiag() {
 // check for winner
 function checkForWinner() {
     if (checkRows() || checkCols() || checkDiag()) {
-        console.log("Winner!");
         info.textContent = `${winSymbol} has won!`
+        if (winSymbol === "X") {
+            winColor = xColor;
+        } 
+        else {
+            winColor = yCOlor;
+        }
         let x = document.getElementsByClassName("btn");
         for (let i = 0; i < x.length; i++) {
             x[i].disabled = true;
-            x[i].style.background = "#550077";
+            x[i].style.background = winColor;
 
         }
     }

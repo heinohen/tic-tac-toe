@@ -69,8 +69,26 @@ td {
     height: 100px;
     width: 100px;
     box-shadow: 0px 5px 10px 0px rbga(0,0,0,0.5);
+    opacity: 0.6;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    border: 0;
+    outline:0;
+
 
 }
+
+.btn:hover {
+    opacity: 1.0;
+}
+
+.btn:disabled {
+    background-color: wheat;
+    font-size: 60px;
+    color: #000000;
+    cursor: not-allowed;
+}
+
 
 #starto, #reseto {
     margin: 20px;
@@ -90,11 +108,6 @@ td {
     transform: none;
 
 }
-
-.btn:hover {
-    background-color: rgb(96, 11, 11);
-}
-
 
 .footer {
     margin-top: auto;
