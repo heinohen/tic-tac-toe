@@ -16,8 +16,8 @@ let roundCounter = 0;
 let symbol = "X";
 let winSymbol;
 
-// X color #1df500
-// Y color #f50000
+// X color #1df500 green
+// Y color #f50000 red
 const xColor = "#1df500";
 const yCOlor = "#f50000";
 let winColor = "";
@@ -29,23 +29,28 @@ let winColor = "";
 
 let gameboard = new Array(9);
 
-gameboard[0] = ".";
-gameboard[1] = ".";
-gameboard[2] = ".";
+function resetBoard() {
+    gameboard[0] = ".";
+    gameboard[1] = ".";
+    gameboard[2] = ".";
 
-gameboard[3] = ".";
-gameboard[4] = ".";
-gameboard[5] = ".";
+    gameboard[3] = ".";
+    gameboard[4] = ".";
+    gameboard[5] = ".";
 
-gameboard[6] = ".";
-gameboard[7] = ".";
-gameboard[8] = ".";
+    gameboard[6] = ".";
+    gameboard[7] = ".";
+    gameboard[8] = ".";
 
+}
+
+resetBoard();
 
 // start button
 
 const startButton = document.getElementById("starto");
 startButton.addEventListener("click", () => {
+    resetBoard();
     startGame();
     startButton.disabled = true;
 })
@@ -144,6 +149,8 @@ function activateButtons() {
     let x = document.getElementsByClassName("btn");
     for (let i = 0; i < x.length; i++) {
         x[i].disabled = false;
+        x[i].textContent = "";
+        x[i].style.background = "wheat";
     }
 }
 
@@ -151,6 +158,7 @@ function disableButtons() {
     let x = document.getElementsByClassName("btn");
     for (let i = 0; i < x.length; i++) {
         x[i].disabled = true;
+        
     }
 }
 
@@ -158,6 +166,14 @@ function startGame() {
     activateButtons();
     info.textContent = "Game on, good luck!"
     commentator.textContent = `${symbol} goes first!`;
+}
+
+function resetGame() {
+    resetBoard();
+    symbol = "X";
+    roundCounter = 0;
+    startGame();
+    startButton.disabled = true;
 }
 
 
@@ -171,13 +187,9 @@ function playRound() {
         symbol = "O";
         roundCounter++;
     }
+    console.log(roundCounter);
 
 }
-
-
-
-
-
 
 // check rows
 
@@ -245,26 +257,40 @@ function checkDiag() {
     }
 }
 
+
+
 // check for winner
 function checkForWinner() {
+    let x = document.getElementsByClassName("btn");
     if (checkRows() || checkCols() || checkDiag()) {
         info.textContent = `${winSymbol} has won!`
         if (winSymbol === "X") {
             winColor = xColor;
-        } 
+        }
         else {
             winColor = yCOlor;
         }
-        let x = document.getElementsByClassName("btn");
+        
         for (let i = 0; i < x.length; i++) {
             x[i].disabled = true;
             x[i].style.background = winColor;
 
         }
+        return;
     }
+    if (roundCounter === 9) {
+        
+        for (let i = 0; i < x.length; i++) {
+            x[i].disabled = true;
+            x[i].style.background = "#ffffff";
+            info.textContent = "Tie game!"
+
+        }
+    }   
 }
 
 // STYLING AND HTML CONTENT!
+
 //footer
 
 const footer = document.querySelector('.footer');
